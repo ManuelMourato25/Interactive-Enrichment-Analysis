@@ -66,7 +66,12 @@ shinyServer(function(input, output, session) {
         output$db.build <- NULL
         rdata.fn <- file.path("../databases",input$rdata)
         db.list <- load(rdata.fn, globalenv())
+        print(db.list)
         for (db in db.list){
+        print(db)
+        print(parse(text=db))
+        print(eval(parse(text=db)))
+        print(names(eval(parse(text=db))))
           db.colnames <- tolower(names(eval(parse(text=db))))
           print(db.colnames)
           for (cn in c("name","term","gene")){
