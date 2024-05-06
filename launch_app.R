@@ -25,6 +25,6 @@ status <- sapply(initial.libs,require,character.only = TRUE)
            status))
   }
 # Launch shiny app
-shiny::runGitHub('Interactive-Enrichment-Analysis', 'gladstone-institutes',
+shiny::runGitHub('Interactive-Enrichment-Analysis', 'ManuelMourato25',
                  subdir = 'shiny_run/app', destdir = file.path(getwd(),"Interactive-Enrichment-Analysis"),
                  launch.browser= TRUE)

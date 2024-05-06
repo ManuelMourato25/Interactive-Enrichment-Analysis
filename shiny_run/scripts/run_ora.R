@@ -1,7 +1,8 @@
 ## Function to perform ORA (see shiny_run)
 
 run_ora<-function(dataset.name, db.name, output.name="run"){
-  
+
+  print(db.name)
   # file.prefix and output dir
   file.prefix <- strsplit(dataset.name,"\\.")[[1]][1] #remove ext if there
   output.dir <- file.path("../",output.name, file.prefix)
@@ -12,9 +13,7 @@ run_ora<-function(dataset.name, db.name, output.name="run"){
   org.db.name <- params$org.db.name
   minGSSize <- params$minGSSize
   maxGSSize <- params$maxGSSize
-  
-  # Object from string
-  database <- eval(parse(text=db.name))
+
   
   # Retrieve geneList 
   gl.fn <- paste0(file.prefix, "__ora_input.rds")
@@ -30,8 +29,24 @@ run_ora<-function(dataset.name, db.name, output.name="run"){
   if(!'p.value' %in% names(geneList) | !length(universe) > length(gene)){
     universe <- NULL
   }
-  
+
+
+  if(db.name=='kegg'){
+      print("LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL")
+    # Perform ORA
+  enrichResult <- clusterProfiler::enrichKEGG(
+    gene,
+    universe = universe,
+    minGSSize = minGSSize,
+    maxGSSize = maxGSSize,
+    # pAdjustMethod="holm", #default is "BH"
+    pvalueCutoff = 1 #to limit results
+    )
+  }
+  else{
   # Perform ORA
+    # Object from string
+  database <- eval(parse(text=db.name))
   enrichResult <- clusterProfiler::enricher(
     gene,
     universe = universe,
@@ -42,6 +57,7 @@ run_ora<-function(dataset.name, db.name, output.name="run"){
     # pAdjustMethod="holm", #default is "BH"
     pvalueCutoff = 1 #to limit results
     )
+    }
   if(!is.null(enrichResult))
     enrichResult <- setReadable(enrichResult, eval(parse(text=org.db.name)), keyType = "ENTREZID")
   
