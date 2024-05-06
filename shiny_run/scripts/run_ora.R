@@ -31,7 +31,7 @@ run_ora<-function(dataset.name, db.name, output.name="run"){
   }
 
 
-  if(db.name=='kegg'){
+  if(db.name=='db_kegg'){
       print("LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL")
     # Perform ORA
   enrichResult <- clusterProfiler::enrichKEGG(
