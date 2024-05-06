@@ -43,7 +43,7 @@ build_db <- function(gmt.list, db.name){
         dplyr::mutate(term = figid) %>%
         dplyr::select(term, name, gene)
     }
-    else if(grepl("www.gsea-msigdb.org%", g.tg$term[1])){ #KEGG GMT
+    else if(grepl("www.gsea-msigdb.org", g.tg$term[1])){ #KEGG GMT
       print("here1")
       print(rWikiPathways::readPathwayGMT(g.fn) )
       g.df <- rWikiPathways::readPathwayGMT(g.fn) %>%
