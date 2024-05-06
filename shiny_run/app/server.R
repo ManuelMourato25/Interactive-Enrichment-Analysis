@@ -87,7 +87,7 @@ shinyServer(function(input, output, session) {
       }
     }
     print("here1111")
-    append(db.list,"db_kegg")
+    db.list <- append(db.list,"db_kegg")
     print(db.list)
     return(db.list)
   }
