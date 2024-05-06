@@ -13,8 +13,7 @@ run_gsea<-function(dataset.name, db.name, output.name="run"){
   minGSSize <- params$minGSSize
   maxGSSize <- params$maxGSSize
   
-  # Object from string
-  database <- eval(parse(text=db.name))
+
   
   # geneList from file.prefix
   gl.fn <- paste0(file.prefix, "__gsea_input.rds")
@@ -30,6 +29,9 @@ run_gsea<-function(dataset.name, db.name, output.name="run"){
   geneList <- sort(ranked.genes.entrez.nl, decreasing = T)
   
   # Perform GSEA
+  if (db.name!='db_kegg'){
+    # Object from string
+  database <- eval(parse(text=db.name))
   gseaResult <- clusterProfiler::GSEA(
     geneList,
     TERM2GENE = database[,c("term","gene")],
@@ -39,6 +41,17 @@ run_gsea<-function(dataset.name, db.name, output.name="run"){
     # pAdjustMethod="holm", #default is "BH"
     pvalueCutoff = 0.1, #to limit results
     verbose=FALSE)
+     }
+     else{
+
+     gseaResult <- gseKEGG(geneList= geneList,
+               organism     = 'mmu',
+               nPerm        = 10000,
+               minGSSize    = minGSSize,
+               maxGSSize    = maxGSSize,
+               pvalueCutoff = 0.1,
+               keyType       = "ncbi-geneid")
+     }
   if(!is.null(gseaResult))
     gseaResult <- setReadable(gseaResult, eval(parse(text=org.db.name)), keyType = "ENTREZID")
   
