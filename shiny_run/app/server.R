@@ -83,10 +83,11 @@ shinyServer(function(input, output, session) {
         output$db.list.title <- renderText("These are the databases we will use in this run:")
         rv$db.status <- TRUE
         rv$params$db.name <- input$rdata
-        rv$params$db.list <- paste(db.list, collapse = ",")
+        rv$params$db.list <- paste(paste(db.list, collapse = ","),"db_kegg",sep=",")
       }
     }
     print("here1111")
+    db.list <- as.list(db.list)
     db.list <- append(db.list,"db_kegg")
     print(db.list)
     return(db.list)
