@@ -105,7 +105,7 @@ shinyServer(function(input, output, session) {
   makePlotData <- function(){
     params <- getDataParams()
     data <- getTableData()
-    if('p.value' %in% names(data) & 'fold.change' %in% names(data)) {
+    if('p.adjvalue' %in% names(data) & 'fold.change' %in% names(data)) {
       if(!params$fromType %in% names(data)) # i.e., excluded cases
         data$SYMBOL <- data$gene
       switch (input$plot0,
@@ -372,16 +372,16 @@ shinyServer(function(input, output, session) {
     params <- getDataParams()
     data <- getTableData()
     #get up/down regulated if available
-    if('p.value' %in% names(data) & 'fold.change' %in% names(data)) {
+    if('p.adjvalue' %in% names(data) & 'fold.change' %in% names(data)) {
       entrez.up <- data %>%
         dplyr::filter(SYMBOL %in% res.object.geneList) %>%
-        dplyr::filter(fold.change > params$ora.fc & p.value < params$ora.pv) %>%
+        dplyr::filter(fold.change > params$ora.fc & p.adjvalue < params$ora.pv) %>%
         dplyr::rowwise() %>%
         dplyr::mutate(new.entrez = paste("Entrez","Gene",ENTREZID, sep = "_")) %>% 
         dplyr::pull(new.entrez) #always available in data
       entrez.dn <- data %>%
         dplyr::filter(SYMBOL %in% res.object.geneList) %>%
-        dplyr::filter(fold.change < -params$ora.fc & p.value < params$ora.pv) %>%
+        dplyr::filter(fold.change < -params$ora.fc & p.adjvalue < params$ora.pv) %>%
         dplyr::rowwise() %>%
         dplyr::mutate(new.entrez = paste("Entrez","Gene",ENTREZID, sep = "_")) %>%
         dplyr::pull(new.entrez) #always available in data

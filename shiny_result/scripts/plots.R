@@ -246,7 +246,7 @@ shinyVolcano <- function(data, params, input, output){
                   drawConnectors = TRUE,
                   widthConnectors = 0.2,
                   x = 'fold.change',
-                  y = 'p.value',
+                  y = 'p.adjvalue',
                   title = "",
                   subtitle = "",
                   legendPosition = input$legend_pos,

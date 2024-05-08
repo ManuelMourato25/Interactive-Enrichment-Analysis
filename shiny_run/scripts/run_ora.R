@@ -25,8 +25,8 @@ run_ora<-function(dataset.name, db.name, output.name="run"){
   universe <- pull(geneList, ENTREZID)
   universe <- as.character(universe) #not integers
   
-  # Use entire genome if not a susbset (i.e., by size or by missing p.value) 
-  if(!'p.value' %in% names(geneList) | !length(universe) > length(gene)){
+  # Use entire genome if not a susbset (i.e., by size or by missing p.adjvalue)
+  if(!'p.adjvalue' %in% names(geneList) | !length(universe) > length(gene)){
     universe <- NULL
   }
 
@@ -44,7 +44,7 @@ run_ora<-function(dataset.name, db.name, output.name="run"){
     maxGSSize = maxGSSize,
     keyType = 'ncbi-geneid',
     # pAdjustMethod="holm", #default is "BH"
-    pvalueCutoff = 1 #to limit results
+    padjvalueCutoff = 1 #to limit results
     )
   }
   else{
@@ -59,7 +59,7 @@ run_ora<-function(dataset.name, db.name, output.name="run"){
     minGSSize = minGSSize,
     maxGSSize = maxGSSize,
     # pAdjustMethod="holm", #default is "BH"
-    pvalueCutoff = 1 #to limit results
+    padjvalueCutoff = 1 #to limit results
     )
     }
   if(!is.null(enrichResult))

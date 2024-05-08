@@ -258,7 +258,7 @@ dashboardPage(
                         numericInput("gene_node","Gene node scale",
                                      1,min=1, max=12,step=2, width = 110),
                         selectInput("color","Color by",
-                                    choices = c("p.adjust","pvalue","qvalue"),
+                                    choices = c("p.adjust","padjvalue","qvalue"),
                                     selected = "p.adjust", width = 90),
                         selectInput("layout","Layout",
                                     choices = c("nicely","kk","sugiyama","fr", "gem","lgl","mds"),

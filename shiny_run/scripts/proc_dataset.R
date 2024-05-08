@@ -19,22 +19,22 @@ proc_dataset<-function(ds.name, org.db.name, fromType,
     ds.names <- names(dataset)
     # TODO
     if(!'fold.change' %in% ds.names){
-      if(!'p.value' %in% ds.names){ # plain list
+      if(!'p.adjvalue' %in% ds.names){ # plain list
         set.genes <- dataset%>%
           dplyr::mutate(ora.set = 1)
-      } else { #p.value only
+      } else { #p.adjvalue only
         set.genes <- dataset %>%
           rowwise() %>%
-          dplyr::mutate(ora.set = ifelse(p.value < ora.pv, 1, 0)) %>%
+          dplyr::mutate(ora.set = ifelse(p.adjvalue < ora.pv, 1, 0)) %>%
           as.data.frame()
       }
     } else {
-      if(!'p.value' %in% ds.names){
-        return('Found "fold.change" but no "p.value." Please reformat your CSV to have a "p.value" column. Skipped!')
-      } else { # fold.change and p.value 
+      if(!'p.adjvalue' %in% ds.names){
+        return('Found "fold.change" but no "p.adjvalue." Please reformat your CSV to have a "p.adjvalue" column. Skipped!')
+      } else { # fold.change and p.adjvalue
         set.genes <- dataset %>%
           rowwise() %>%
-          dplyr::mutate(ora.set = ifelse(p.value < ora.pv && abs(fold.change) > ora.fc , 1, 0)) %>%
+          dplyr::mutate(ora.set = ifelse(p.adjvalue < ora.pv && abs(fold.change) > ora.fc , 1, 0)) %>%
           as.data.frame()
       }
     }
@@ -45,13 +45,13 @@ proc_dataset<-function(ds.name, org.db.name, fromType,
     # Record unmapped rows
     set.genes.unmapped <- set.genes %>%
       dplyr::filter(!gene %in% set.genes.entrez[[fromType]]) %>%
-      {if('p.value' %in% ds.names) dplyr::arrange(.,p.value) else .} %>%
+      {if('p.adjvalue' %in% ds.names) dplyr::arrange(.,p.adjvalue) else .} %>%
       dplyr::arrange(desc(ora.set))
     save_genes_params(set.genes.unmapped, ds.noext, "ora", output.dir, T, ora.fc, ora.pv)
     
-    # Resolve duplicates (keep ENTREZID in ora.set and with smallest p.value, if available)
+    # Resolve duplicates (keep ENTREZID in ora.set and with smallest p.adjvalue, if available)
     set.genes.entrez.dedup <- set.genes.entrez %>%
-      {if('p.value' %in% ds.names) dplyr::arrange(.,p.value) else .} %>%
+      {if('p.adjvalue' %in% ds.names) dplyr::arrange(.,p.adjvalue) else .} %>%
       dplyr::arrange(desc(ora.set)) %>%
       dplyr::distinct(ENTREZID, .keep_all = T)
     save_genes_params(set.genes.entrez.dedup, ds.noext, "ora", output.dir, F, ora.fc, ora.pv)
@@ -62,22 +62,22 @@ proc_dataset<-function(ds.name, org.db.name, fromType,
     ranked.genes <- NULL
     ds.names <- names(dataset)
     if(!'fold.change' %in% ds.names){
-      if(!'p.value' %in% ds.names){
+      if(!'p.adjvalue' %in% ds.names){
         if(!'rank' %in% ds.names){
-          return('Could not find "rank" or "p.value" columns in this dataset. Skipped!')
+          return('Could not find "rank" or "p.adjvalue" columns in this dataset. Skipped!')
         } else { #by user-provided rank
           ranked.genes <- dataset       
         }
-      } else { #by user-provided p.value
+      } else { #by user-provided p.adjvalue
         ranked.genes <- dataset %>%
-          dplyr::mutate(rank = (-log10(as.numeric(as.character(p.value))))) 
+          dplyr::mutate(rank = (-log10(as.numeric(as.character(p.adjvalue)))))
       }
     } else {
-      if(!'p.value' %in% ds.names){
-        return('Found "fold.change" but no "p.value." Please reformat your CSV to have a "p.value" column. Skipped!')
-      } else { #by user-provided fold.change and p.value
+      if(!'p.adjvalue' %in% ds.names){
+        return('Found "fold.change" but no "p.adjvalue." Please reformat your CSV to have a "p.adjvalue" column. Skipped!')
+      } else { #by user-provided fold.change and p.adjvalue
         ranked.genes <- dataset %>%
-          dplyr::mutate(rank = (sign(as.numeric(fold.change)) * -log10(as.numeric(as.character(p.value))))) 
+          dplyr::mutate(rank = (sign(as.numeric(fold.change)) * -log10(as.numeric(as.character(p.adjvalue)))))
       }
     }
     

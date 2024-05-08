@@ -275,9 +275,9 @@ shinyServer(function(input, output, session) {
         )
       })
       rv$plan <- "Here are your analysis options:"
-      # ORA ONLY: fold.change and p.value
+      # ORA ONLY: fold.change and p.adjvalue
       #set min/maxGSSize
-      if ('fold.change' %in% ds.names & 'p.value' %in% ds.names){
+      if ('fold.change' %in% ds.names & 'p.adjvalue' %in% ds.names){
         output$ora.params <- renderUI({
           tagList(
             fluidRow(
@@ -297,13 +297,13 @@ shinyServer(function(input, output, session) {
               column(
                 width = 6,
                 numericInput(
-                  "pvalue",
-                  "Set p.value cutoff",
+                  "padjvalue",
+                  "Set p.adjvalue cutoff",
                   value = rv$params$ora.pv,
                   min = 0, max = 1,
                   step = 0.01
                 ),
-                shinyBS::bsTooltip("pvalue", 
+                shinyBS::bsTooltip("padjvalue",
                           "Maximum threshold for defining subset of genes for ORA analysis", 
                           placement = "bottom", trigger = "hover")
               )
@@ -312,7 +312,7 @@ shinyServer(function(input, output, session) {
         })
       } # end if ORA
       #SET METHODS Checkbox and PLAN
-      if (!'p.value' %in% ds.names.in && !'rank' %in% ds.names.in){
+      if (!'p.adjvalue' %in% ds.names.in && !'rank' %in% ds.names.in){
         output$plan.params <- renderUI({
           tagList(
             checkboxInput(
@@ -325,7 +325,7 @@ shinyServer(function(input, output, session) {
                                placement = "bottom", trigger = "hover")
           )
         })
-      } else if(!'p.value' %in% ds.names.in && 'rank' %in% ds.names.in){
+      } else if(!'p.adjvalue' %in% ds.names.in && 'rank' %in% ds.names.in){
         output$plan.params <- renderUI({
           tagList(
             checkboxInput(
@@ -387,8 +387,8 @@ shinyServer(function(input, output, session) {
   observeEvent(input$foldchange, {
     rv$params$ora.fc <- input$foldchange
   })
-  observeEvent(input$pvalue, {
-    rv$params$ora.pv <- input$pvalue
+  observeEvent(input$padjvalue, {
+    rv$params$ora.pv <- input$padjvalue
   })
   
   #render table data

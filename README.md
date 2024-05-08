@@ -70,7 +70,7 @@ new versions are released.*
 A sample dataset `E-GEOD-30573.csv` ([Voineagu
 2011](https://europepmc.org/article/MED/21614001)) is provided to
 illustrate the required format. *A `gene` column is always required.*
-Columns named `rank`, `p.value`, and `fold.change` (log2FoldChange) are also recognized
+Columns named `rank`, `p.adjvalue`, and `fold.change` (log2FoldChange) are also recognized
 for additional analysis options. All other columns are ignored.
 
 -   **In the *Datasets* panel, choose one more more datasets to analyze
@@ -86,8 +86,8 @@ The supported formats include:
 
      - a simple list of genes (for ORA only)
      - a list of genes with a `rank` column (for GSEA only)
-     - a list of genes with a `p.value` column (for GSEA and ORA)
-     - a list of genes with `p.value` and `fold.change` columns (for GSEA
+     - a list of genes with a `p.adjvalue` column (for GSEA and ORA)
+     - a list of genes with `p.adjvalue` and `fold.change` columns (for GSEA
     and ORA)
 
 *Caution: For a given run, all datasets are assumed to have the same
@@ -129,7 +129,7 @@ sets with fewer than 3 genes or more than 500 genes.
 
 **ORA Cutoffs**
 
-If ORA is to be performed, then `fold.change` and `p.value` cutoffs must
+If ORA is to be performed, then `fold.change` and `p.adjvalue` cutoffs must
 be supplied. These are used to define the subset of significantly
 changed genes to test against all other genes in the dataset.
 
@@ -202,7 +202,7 @@ For a given run, dataset and method (see side panel), the *Data* tab
 displays the processed input data as a table (left) and volcano plot
 (right). The table is paginated and supports search, filtering and
 download as Excel, CSV or to clipboard. The volcano plot uses the
-user-specified `fold.change` and `p.value` cutoffs (for ORA) and can
+user-specified `fold.change` and `p.adjvalue` cutoffs (for ORA) and can
 also be downloaded. A checkbox near the top of the panel allows you to
 also view the genes that were excluded from the analysis, e.g., due to
 failed identifier mapping.
@@ -216,7 +216,7 @@ substantial (e.g., a lot of significant genes per the volcano plot).*
 **Volcano plot**
 
 Using [EnhancedVolcano](https://bioconductor.org/packages/release/bioc/html/EnhancedVolcano.html),
-a volcano plot of your input data highlights subsets of genes based on the p.value
+a volcano plot of your input data highlights subsets of genes based on the p.adjvalue
 and fold-change cutoffs indicated during the run. Plot options includes:
  * `Top n genes` - How many genes to label in the plot (ignored if genes names are entered)
  * `Enter genes by name` - A list of gene names with auto-populated choices from the top 20 (overrides `Top n genes`)
@@ -265,7 +265,7 @@ a dot plot of results highlight multiple statistics for the most enriched result
  * `Size by` - Set the size of dots by Count, GeneRatio, or Percentage (*dataset genes overlapping a given term vs all genes in term*)
  * `Wrap labels` - Wrap long labels to mulitple lines after a specified number of characters
  * `Label font size` - Font size for all text
- * `Color by` - Set the color of dots by pvalue, p.adjust, or qvalue (see [clusterProfiler](https://bioconductor.org/packages/release/bioc/html/clusterProfiler.html) docs)
+ * `Color by` - Set the color of dots by padjvalue, p.adjust, or qvalue (see [clusterProfiler](https://bioconductor.org/packages/release/bioc/html/clusterProfiler.html) docs)
   <br/><br/><br/><br/><br/>
   
 <img src="shiny_run/assets/shiny_results_res_bar.png" width="400" align="left"/>
@@ -308,7 +308,7 @@ Plot options includes:
  * `Wrap labels` - Wrap long labels to mulitple lines after a specified number of characters
  * `Label font size` - Font size for node labels
  * `Result node scale` - Relative scale factor for the size of nodes
- * `Color by` - Set the color of dots by pvalue, p.adjust, or qvalue (see [clusterProfiler](https://bioconductor.org/packages/release/bioc/html/clusterProfiler.html) docs)
+ * `Color by` - Set the color of dots by padjvalue, p.adjust, or qvalue (see [clusterProfiler](https://bioconductor.org/packages/release/bioc/html/clusterProfiler.html) docs)
  * `Layout` - Layout algorithm to apply to network. Layout names are rarely
  descriptive, so just try them out!
  <br/><br/><br/><br/><br/>
@@ -421,13 +421,13 @@ our group if these tools prove useful.
 ```
   Warning: Error in preparePathwaysAndStats: Not all stats values are finite numbers
 ```
- * Solution: You may have invalid p.values, e.g., zero is not an acceptable p.value. Replace these cases with a p.value smaller than any other in your dataset, then try again.
+ * Solution: You may have invalid p.adjvalues, e.g., zero is not an acceptable p.adjvalue. Replace these cases with a p.adjvalue smaller than any other in your dataset, then try again.
 
 3. Dataset not working or GSEA not offered as option
- * Solution:  Double check that your columns names are exactly: `gene` `fold.change` and `p.value`. Other names will not be recognized by the tool.
+ * Solution:  Double check that your columns names are exactly: `gene` `fold.change` and `p.adjvalue`. Other names will not be recognized by the tool.
 
 4. Error running ORA
 ```
 Error in <Anonymous>: 'geneSets' is not a slot in class "NULL"
 ```
- * There are no genes that pass your significance filter criteria and ID mapping to Entrez ID. Explore your dataset in Excel to choose alternative criteria, e.g., larger p.value and/or smaller fold.change.
+ * There are no genes that pass your significance filter criteria and ID mapping to Entrez ID. Explore your dataset in Excel to choose alternative criteria, e.g., larger p.adjvalue and/or smaller fold.change.
