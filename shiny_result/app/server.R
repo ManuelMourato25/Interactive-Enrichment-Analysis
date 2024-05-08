@@ -200,6 +200,7 @@ shinyServer(function(input, output, session) {
   # add database-specific choices
   appendPerDatabase <- function(choices){
     sample.result.id <- getResultObj()@result$ID[1]
+    print(sample.result.id)
     if (grepl("^WP\\d+$", sample.result.id)) #WikiPathways
       unique(c("WikiPathways",choices))
     else if (grepl("^PMC\\d+__", sample.result.id))  #PFOCR
@@ -214,8 +215,6 @@ shinyServer(function(input, output, session) {
       unique(c("Molecular Function",choices))
     else if (grepl("^GO:\\d+", sample.result.id)) # GO CC
       unique(c("Celular Component",choices))
-
-    print(sample.result.id)
     else #GO without GOIDs
       unique(c("Gene Ontology",choices))
   }
