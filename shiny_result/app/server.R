@@ -206,13 +206,13 @@ shinyServer(function(input, output, session) {
       unique(c("Pathway Figure",choices))
     else if (grepl("^GO:\\d+", sample.result.id))  #GO
       unique(c("Gene Ontology",choices))
-    else if () # KEGG
+    else if (grepl("^GO:\\d+", sample.result.id)) # KEGG
       unique(c("KEGG Pathway",choices))
-    else if () # GO BP
+    else if (grepl("^GO:\\d+", sample.result.id)) # GO BP
       unique(c("Biological Process",choices))
-    else if () # GO MF
+    else if (grepl("^GO:\\d+", sample.result.id)) # GO MF
       unique(c("Molecular Function",choices))
-    else if () # GO CC
+    else if (grepl("^GO:\\d+", sample.result.id)) # GO CC
       unique(c("Celular Component",choices))
 
     print(sample.result.id)
