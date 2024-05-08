@@ -44,7 +44,7 @@ run_ora<-function(dataset.name, db.name, output.name="run"){
     maxGSSize = maxGSSize,
     keyType = 'ncbi-geneid',
     # pAdjustMethod="holm", #default is "BH"
-    padjvalueCutoff = 1 #to limit results
+    pvalueCutoff = 0.05 #to limit results
     )
   }
   else{
@@ -59,7 +59,7 @@ run_ora<-function(dataset.name, db.name, output.name="run"){
     minGSSize = minGSSize,
     maxGSSize = maxGSSize,
     # pAdjustMethod="holm", #default is "BH"
-    padjvalueCutoff = 1 #to limit results
+    pvalueCutoff = 0.05 #to limit results
     )
     }
   if(!is.null(enrichResult))

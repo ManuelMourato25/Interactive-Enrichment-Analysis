@@ -36,7 +36,7 @@ run_gsea<-function(dataset.name, db.name, output.name="run"){
                nPerm        = 10000,
                minGSSize    = minGSSize,
                maxGSSize    = maxGSSize,
-               padjvalueCutoff = 0.1,
+               pvalueCutoff = 0.05,
                keyType       = "ncbi-geneid")
      }
      else{
@@ -49,7 +49,7 @@ run_gsea<-function(dataset.name, db.name, output.name="run"){
                 minGSSize = minGSSize,
                 maxGSSize = maxGSSize,
                 # pAdjustMethod="holm", #default is "BH"
-                padjvalueCutoff = 0.1, #to limit results
+                pvalueCutoff = 0.05, #to limit results
                 verbose=FALSE)
      }
   if(!is.null(gseaResult))
