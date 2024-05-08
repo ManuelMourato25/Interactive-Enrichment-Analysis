@@ -509,7 +509,7 @@ shinyServer(function(input, output, session) {
               '<br /><a href="http://amigo.geneontology.org/visualize?term_data_type=string&mode=amigo&inline=false&term_data=',
               res.object.id,
               '&format=svg" target="_blank" >open in new window</a>'
-            )
+            ),
             "KEGG Pathway" = paste0(
               custom.linkout.button,
               '<img src="https://www.genome.jp/pathway/',
