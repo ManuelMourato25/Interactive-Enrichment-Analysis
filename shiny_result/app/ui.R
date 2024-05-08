@@ -55,6 +55,8 @@ dashboardPage(
       target="_blank">Pathway Figures OCR</a>,
       <a href="https://geneontology.org/"
       target="_blank">Gene Ontology</a>
+      <a href="https://www.genome.jp/"
+      target="_blank">KEGG Pathway</a>
       </p></div'
     )
   ),

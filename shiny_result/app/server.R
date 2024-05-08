@@ -510,6 +510,15 @@ shinyServer(function(input, output, session) {
               res.object.id,
               '&format=svg" target="_blank" >open in new window</a>'
             )
+            "KEGG Pathway" = paste0(
+              custom.linkout.button,
+              '<img src="https://www.genome.jp/pathway/',
+              res.object.id,
+              '/image" style="max-width:450px;">',
+              '<br /><a href="https://www.genome.jp/pathway/',
+              res.object.id,
+              '/image" target="_blank" >open in new window</a>'
+            )
     )
   }
   
