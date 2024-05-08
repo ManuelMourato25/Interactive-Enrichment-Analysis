@@ -39,6 +39,45 @@ run_gsea<-function(dataset.name, db.name, output.name="run"){
                pvalueCutoff = 0.05,
                keyType       = "ncbi-geneid")
      }
+       else if (db.name=='db_go_bp'){
+
+       gseGO(geneList=geneList,
+                     ont ="BP",
+                     keyType = "ENTREZID",
+                     nPerm = 10000,
+                     minGSSize = minGSSize,
+                     maxGSSize = maxGSSize,
+                     pvalueCutoff = 0.05,
+                     verbose = TRUE,
+                     OrgDb = org.db.name,
+                     pAdjustMethod = "BH")
+     }
+           else if (db.name=='db_go_mf'){
+
+       gseGO(geneList=geneList,
+                     ont ="MF",
+                     keyType = "ENTREZID",
+                     nPerm = 10000,
+                     minGSSize = minGSSize,
+                     maxGSSize = maxGSSize,
+                     pvalueCutoff = 0.05,
+                     verbose = TRUE,
+                     OrgDb = org.db.name,
+                     pAdjustMethod = "BH")
+     }
+           else if (db.name=='db_go_cc'){
+
+       gseGO(geneList=geneList,
+                     ont ="CC",
+                     keyType = "ENTREZID",
+                     nPerm = 10000,
+                     minGSSize = minGSSize,
+                     maxGSSize = maxGSSize,
+                     pvalueCutoff = 0.05,
+                     verbose = TRUE,
+                     OrgDb = org.db.name,
+                     pAdjustMethod = "BH")
+     }
      else{
             # Object from string
               database <- eval(parse(text=db.name))

@@ -33,9 +33,6 @@ run_ora<-function(dataset.name, db.name, output.name="run"){
 
   if(db.name=='db_kegg'){
     # Perform ORA
-
-
-
   enrichResult <- clusterProfiler::enrichKEGG(
     gene,
     organism = "mmu",
@@ -45,6 +42,36 @@ run_ora<-function(dataset.name, db.name, output.name="run"){
     # pAdjustMethod="holm", #default is "BH"
     pvalueCutoff = 0.05 #to limit results
     )
+  }
+  else if(db.name=='db_go_bp') {
+enrichResult <- enrichGO(
+                           gene,
+                           OrgDb = org.db.name,
+                           keyType = 'ENTREZID',
+                           readable = T,
+                           ont = "BP",
+                           pvalueCutoff = 0.05)
+
+  }
+    else if(db.name=='db_go_mf') {
+enrichResult <- enrichGO(
+                           gene,
+                           OrgDb = org.db.name,
+                           keyType = 'ENTREZID',
+                           readable = T,
+                           ont = "MF",
+                           pvalueCutoff = 0.05)
+
+  }
+    else if(db.name=='db_go_cc') {
+enrichResult <- enrichGO(
+                           gene,
+                           OrgDb = org.db.name,
+                           keyType = 'ENTREZID',
+                           readable = T,
+                           ont = "CC",
+                           pvalueCutoff = 0.05)
+
   }
   else{
   # Perform ORA

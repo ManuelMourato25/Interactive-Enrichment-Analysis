@@ -206,6 +206,7 @@ shinyServer(function(input, output, session) {
       unique(c("Pathway Figure",choices))
     else if (grepl("^GO:\\d+", sample.result.id))  #GO
       unique(c("Gene Ontology",choices))
+    print(sample.result.id)
     else #GO without GOIDs
       unique(c("Gene Ontology",choices))
   }
