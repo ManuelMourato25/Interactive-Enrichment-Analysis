@@ -41,7 +41,7 @@ run_gsea<-function(dataset.name, db.name, output.name="run"){
      }
        else if (db.name=='db_go_bp'){
 
-       gseGO(geneList=geneList,
+       gseaResult <- gseGO(geneList=geneList,
                      ont ="BP",
                      keyType = "ENTREZID",
                      nPerm = 10000,
@@ -54,7 +54,7 @@ run_gsea<-function(dataset.name, db.name, output.name="run"){
      }
            else if (db.name=='db_go_mf'){
 
-       gseGO(geneList=geneList,
+       gseaResult <- gseGO(geneList=geneList,
                      ont ="MF",
                      keyType = "ENTREZID",
                      nPerm = 10000,
@@ -67,7 +67,7 @@ run_gsea<-function(dataset.name, db.name, output.name="run"){
      }
            else if (db.name=='db_go_cc'){
 
-       gseGO(geneList=geneList,
+       gseaResult <- gseGO(geneList=geneList,
                      ont ="CC",
                      keyType = "ENTREZID",
                      nPerm = 10000,

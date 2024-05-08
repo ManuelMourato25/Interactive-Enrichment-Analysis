@@ -206,6 +206,15 @@ shinyServer(function(input, output, session) {
       unique(c("Pathway Figure",choices))
     else if (grepl("^GO:\\d+", sample.result.id))  #GO
       unique(c("Gene Ontology",choices))
+    else if () # KEGG
+      unique(c("KEGG Pathway",choices))
+    else if () # GO BP
+      unique(c("Biological Process",choices))
+    else if () # GO MF
+      unique(c("Molecular Function",choices))
+    else if () # GO CC
+      unique(c("Celular Component",choices))
+
     print(sample.result.id)
     else #GO without GOIDs
       unique(c("Gene Ontology",choices))
@@ -425,7 +434,41 @@ shinyServer(function(input, output, session) {
         paste0('http://amigo.geneontology.org/amigo/term/',
                res.object.id),
         "Gene Ontology")
+
+        } else if (grepl("^GO:\\d+", res.object.id)) { #KEGG
+      custom.linkout.button <- makeLinkoutButton(
+        "btn-primary",
+        "https://avatars1.githubusercontent.com/u/7750835?s=200&v=4",
+        "View the selected KEGG Pathway",
+        paste0('https://www.genome.jp/pathway/',
+               res.object.id),
+        "KEGG Pathway")
+        } else if (grepl("^GO:\\d+", res.object.id)) { #GO BP
+      custom.linkout.button <- makeLinkoutButton(
+        "btn-primary",
+        "https://avatars1.githubusercontent.com/u/7750835?s=200&v=4",
+        "View the selected GO term at AmiGO",
+        paste0('http://amigo.geneontology.org/amigo/term/',
+               res.object.id),
+        "Gene Ontology")
+    }  else if (grepl("^GO:\\d+", res.object.id)) { #GO MF
+      custom.linkout.button <- makeLinkoutButton(
+        "btn-primary",
+        "https://avatars1.githubusercontent.com/u/7750835?s=200&v=4",
+        "View the selected GO term at AmiGO",
+        paste0('http://amigo.geneontology.org/amigo/term/',
+               res.object.id),
+        "Gene Ontology")
+    } else if (grepl("^GO:\\d+", res.object.id)) { #GO CC
+      custom.linkout.button <- makeLinkoutButton(
+        "btn-primary",
+        "https://avatars1.githubusercontent.com/u/7750835?s=200&v=4",
+        "View the selected GO term at AmiGO",
+        paste0('http://amigo.geneontology.org/amigo/term/',
+               res.object.id),
+        "Gene Ontology")
     }
+
     switch (input$plot2,
             "GSEA score" = NULL,
             "STRING network" = NULL,
