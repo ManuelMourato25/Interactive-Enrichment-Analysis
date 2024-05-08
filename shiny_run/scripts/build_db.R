@@ -20,28 +20,22 @@ build_db <- function(gmt.list, db.name){
     dplyr::distinct(figid, term)
   
   #read gmt files and format gmt df objects
-  print("here123")
   for(g in gmt.list) {
-  print("here234")
     g.name <- gsub(".gmt","", g)
     g.fn <- file.path("..","databases","gmts",g)
     g.tg <- rWikiPathways::readGMT(g.fn)
-    print(g.tg)
     g.df <- g.tg
     # special handling
     if(grepl("%GOBP%", g.tg$term[1])){ #GO GMT
-      print("aaaa")
       g.df <- rWikiPathways::readPathwayGMT(g.fn) %>%
         dplyr::rename(term = wpid) %>%
         dplyr::mutate(name = paste0(toupper(substr(name,1,1)),tolower(substr(name,2,nchar(name))))) %>%
         dplyr::select(c(name, term, gene))
     } else if (grepl("%WikiPathways_", g.tg$term[1])) { #WP GMT
-    print("bbbb")
       g.df <- rWikiPathways::readPathwayGMT(g.fn) %>%
         dplyr::rename(term = wpid) %>%
         dplyr::select(c(name, term, gene))
     } else if (grepl("^PMC\\d+__.*$", g.tg$term[1])) { # PFOCR
-    print("cccc")
       g.df <- rWikiPathways::readGMTnames(g.fn) %>%
         dplyr::right_join(g.tg, by=c("term")) %>%
         dplyr::mutate(term = gsub(".jpg", "", term)) %>% #if it's there
@@ -50,17 +44,13 @@ build_db <- function(gmt.list, db.name){
         dplyr::select(term, name, gene)
     }
     else if(grepl("www.gsea-msigdb.org", g.tg$term[1])){ #KEGG GMT
-      print("here1")
-      print(rWikiPathways::readPathwayGMT(g.fn) )
       g.df <- rWikiPathways::readPathwayGMT(g.fn) %>%
         dplyr::rename(term = wpid) %>%
         dplyr::mutate(name = paste0(toupper(substr(name,1,1)),tolower(substr(name,2,nchar(name))))) %>%
         dplyr::select(c(name, term, gene))
     }
-    print("dddd")
     assign(g.name, g.df)
   }
-  print("eeee")
   db.name.list <- gsub(".gmt","", gmt.list)
   db.fn <- file.path("..","databases",paste(db.name,"RData", sep = "."))
   save(list=db.name.list, file=db.fn)

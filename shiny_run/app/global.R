@@ -2,7 +2,7 @@ options(shiny.maxRequestSize=10*1024^2) #10MB file upload size limit
 
 #Defaults and Parameters
 minGSSize.default <- 3 # min database geneset size (see clusterProfiler)
-maxGSSize.default <- 500 # max database geneset size (see clusterProfiler)
+maxGSSize.default <- 800 # max database geneset size (see clusterProfiler)
 fc.default <- 1.0 # absolute value threshold for fold.change in ORA
 pv.default <- 0.05 # threshold for p.adjvalue in ORA
 analyzed.columns <- c('gene','fold.change','p.adjvalue', 'rank')

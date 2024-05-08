@@ -2,7 +2,6 @@
 
 run_ora<-function(dataset.name, db.name, output.name="run"){
 
-  print(db.name)
   # file.prefix and output dir
   file.prefix <- strsplit(dataset.name,"\\.")[[1]][1] #remove ext if there
   output.dir <- file.path("../",output.name, file.prefix)
@@ -11,6 +10,7 @@ run_ora<-function(dataset.name, db.name, output.name="run"){
   par.fn <- paste0(file.prefix, "__ora_params.rds")
   params <- readRDS(file.path(output.dir, "ora",par.fn))
   org.db.name <- params$org.db.name
+  print(org.db.name)
   minGSSize <- params$minGSSize
   maxGSSize <- params$maxGSSize
 
@@ -32,7 +32,6 @@ run_ora<-function(dataset.name, db.name, output.name="run"){
 
 
   if(db.name=='db_kegg'){
-      print("LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL")
     # Perform ORA
 
 
