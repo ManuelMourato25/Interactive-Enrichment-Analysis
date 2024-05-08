@@ -200,14 +200,13 @@ shinyServer(function(input, output, session) {
   # add database-specific choices
   appendPerDatabase <- function(choices){
     sample.result.id <- getResultObj()@result$ID[1]
-    print(sample.result.id)
     if (grepl("^WP\\d+$", sample.result.id)) #WikiPathways
       unique(c("WikiPathways",choices))
     else if (grepl("^PMC\\d+__", sample.result.id))  #PFOCR
       unique(c("Pathway Figure",choices))
     else if (grepl("^GO:\\d+", sample.result.id))  #GO
       unique(c("Gene Ontology",choices))
-    else if (grepl("^GO:\\d+", sample.result.id)) # KEGG
+    else if (grepl("^mmu\\d+", sample.result.id)) # KEGG
       unique(c("KEGG Pathway",choices))
     else if (grepl("^GO:\\d+", sample.result.id)) # GO BP
       unique(c("Biological Process",choices))
@@ -434,7 +433,7 @@ shinyServer(function(input, output, session) {
                res.object.id),
         "Gene Ontology")
 
-        } else if (grepl("^GO:\\d+", res.object.id)) { #KEGG
+        } else if (grepl("^mmu\\d+", res.object.id)) { #KEGG
       custom.linkout.button <- makeLinkoutButton(
         "btn-primary",
         "https://avatars1.githubusercontent.com/u/7750835?s=200&v=4",
