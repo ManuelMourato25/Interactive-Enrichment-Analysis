@@ -1,7 +1,7 @@
 ## Function to perform ORA (see shiny_run)
 
 run_ora<-function(dataset.name, db.name, output.name="run"){
-
+  set.seed(1234)
   # file.prefix and output dir
   file.prefix <- strsplit(dataset.name,"\\.")[[1]][1] #remove ext if there
   output.dir <- file.path("../",output.name, file.prefix)

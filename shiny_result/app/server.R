@@ -517,7 +517,7 @@ shinyServer(function(input, output, session) {
               '/image" style="max-width:450px;">',
               '<br /><a href="https://www.genome.jp/pathway/',
               res.object.id,
-              '/image" target="_blank" >open in new window</a>'
+              '" target="_blank" >open in new window</a>'
             )
     )
   }
