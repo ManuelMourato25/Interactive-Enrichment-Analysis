@@ -312,6 +312,20 @@ shinyPPI <- function(resObject,data, input, output){
       res <- resObject@result[1:input$showCategory, ]
       res <- tidyr::separate_rows(res, geneID, sep="\\/")
 
+      if('fold.change' %in% names(data)) {
+         res <- dplyr::left_join(res,data, by=c("geneID"="SYMBOL"))
+      } else {
+         res$fold.change = 0
+      }
+    res <- dplyr::add_count(res, geneID)
+    res <- dplyr::arrange(res, desc(n),desc(abs(fold.change)))
+    freq.gene <- unique(res$geneID)
+    res <- dplyr::filter(res, geneID %in% freq.gene[1:input$showGene])
+    res <- dplyr::mutate(res, geneID = factor(
+    geneID, levels = unique(geneID))) #fix two-factor sorting
+    res <- dplyr::mutate(res, Description = factor(
+    Description, levels=unique(Description)))
+
     df_for_ppi <- res %>%
       arrange(rank) %>%
       select(geneID,fold.change,p.adjvalue)
@@ -327,6 +341,20 @@ shinyTFs <- function(resObject,data, input, output){
 
       res <- resObject@result[1:input$showCategory, ]
       res <- tidyr::separate_rows(res, geneID, sep="\\/")
+
+      if('fold.change' %in% names(data)) {
+         res <- dplyr::left_join(res,data, by=c("geneID"="SYMBOL"))
+      } else {
+         res$fold.change = 0
+      }
+    res <- dplyr::add_count(res, geneID)
+    res <- dplyr::arrange(res, desc(n),desc(abs(fold.change)))
+    freq.gene <- unique(res$geneID)
+    res <- dplyr::filter(res, geneID %in% freq.gene[1:input$showGene])
+    res <- dplyr::mutate(res, geneID = factor(
+    geneID, levels = unique(geneID))) #fix two-factor sorting
+    res <- dplyr::mutate(res, Description = factor(
+    Description, levels=unique(Description)))
 
     df_for_tf <- res %>%
       arrange(rank) %>%
