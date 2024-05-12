@@ -197,7 +197,9 @@ dashboardPage(
                                  "Bar plot",
                                  "Heatmap",
                                  "Emap plot",
-                                 "Concept network")
+                                 "Concept network",
+                                 "Protein Protein Interactions",
+                                 "Transcription Factors")
                    )
             ),
             column(width=5, offset=2,

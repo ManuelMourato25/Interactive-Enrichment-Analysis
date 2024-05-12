@@ -321,6 +321,18 @@ shinyServer(function(input, output, session) {
               if (input$method == "gsea")
                 resObject@result$geneID <- resObject@result$core_enrichment 
               shinyBarplotResult(resObject, data, input, output)
+            },
+            "Protein Protein Interactions" = {
+              data <- getTableData()
+              if (input$method == "gsea")
+                resObject@result$geneID <- resObject@result$core_enrichment
+              shinyPPI(resObject, data, input, output)
+            },
+            "Transcription Factors" = {
+              data <- getTableData()
+              if (input$method == "gsea")
+                resObject@result$geneID <- resObject@result$core_enrichment
+              shinyTFs(resObject, data, input, output)
             }
             
     )

@@ -8,6 +8,9 @@ library(dplyr)
 library(ggplot2)
 library(enrichplot)
 
+net <- get_collectri(organism='mouse', split_complexes=FALSE)
+string_db <- STRINGdb$new( version="12.0", species=10090,score_threshold=200, network_type="full", input_directory="")
+
 ################################################################################
 # OPTION INPUTS #
 #################
@@ -288,11 +291,62 @@ shinyBarplot <- function(data, input, output){
     scale_fill_manual(values=c("#67A9CF","#EF8A62"),
                       name = element_blank()) +
     guides(fill = guide_legend(reverse = TRUE)) +
-    xlab("Genes") + ylab(expression(Log[2]~fold~change)) +
+    xlab("Genes") + ylab(express0ion(Log[2]~fold~change)) +
     theme_bw() +
     theme(text = element_text(size = input$category_label_0),
           axis.text.x = element_text(angle = 45, vjust = 1, hjust=1),
           legend.position = input$legend_pos)
+}
+
+shinyPPI <- function(resObject,data, input, output){
+
+    #filter inputs options panel
+    filterOptions(c("showCategory","category_label","label_format"))
+
+    df_for_ppi <- data %>%
+      arrange(rank) %>%
+      select(gene,fold.change,p.adjvalue)
+
+    example1_mapped <- string_db$map( df_for_ppi, "gene", removeUnmappedRows = TRUE )
+    hits <- example1_mapped$STRING_id[1:input$showCategory]
+    string_db$plot_network(hits)
+}
+shinyTFs <- function(resObject,data, input, output){
+
+    df_for_tf <- data %>%
+      arrange(rank) %>%
+      select(fold.change,p.adjvalue,rank)
+
+    rownames(df_for_tf)<-toupper(df_de$index)
+    deg<- df_for_tf %>% as.matrix()
+    contrast_acts <- run_ulm(mat=deg[, 'rank', drop=FALSE], net=net, .source='source', .target='target',
+                              .mor='mor', minsize = 5)
+
+    f_contrast_acts <- contrast_acts %>%
+      mutate(rnk = NA)
+    msk <- f_contrast_acts$score > 0
+    f_contrast_acts[msk, 'rnk'] <- rank(-f_contrast_acts[msk, 'score'])
+    f_contrast_acts[!msk, 'rnk'] <- rank(-abs(f_contrast_acts[!msk, 'score']))
+    tfs <- f_contrast_acts %>%
+      arrange(rnk) %>%
+      head(input$showCategory) %>%
+      pull(source)
+    f_contrast_acts <- f_contrast_acts %>%
+      filter(source %in% tfs)
+    # Plot
+    ggplot(f_contrast_acts, aes(x = reorder(source, score), y = score)) +
+      geom_bar(aes(fill = score), stat = "identity") +
+      scale_fill_gradient2(low = "darkblue", high = "indianred",
+                           mid = "whitesmoke", midpoint = 0) +
+      theme_minimal() +
+      theme(axis.title = element_text(face = "bold", size = 12),
+            axis.text.x =
+              element_text(angle = 45, hjust = 1, size =10, face= "bold"),
+            axis.text.y = element_text(size =10, face= "bold"),
+            panel.grid.major = element_blank(),
+            panel.grid.minor = element_blank()) +
+      xlab("TFs") )
+
 }
 
 ################################################################################
