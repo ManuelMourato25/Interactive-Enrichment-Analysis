@@ -345,7 +345,7 @@ shinyTFs <- function(resObject,data, input, output){
             axis.text.y = element_text(size =10, face= "bold"),
             panel.grid.major = element_blank(),
             panel.grid.minor = element_blank()) +
-      xlab("TFs") )
+      xlab("TFs")
 
 }
 
