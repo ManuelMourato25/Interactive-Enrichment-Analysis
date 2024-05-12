@@ -309,21 +309,30 @@ shinyPPI <- function(resObject,data, input, output){
     #filter inputs options panel
     filterOptions(c("showCategory","category_label","label_format"))
 
-    df_for_ppi <- data %>%
-      arrange(rank) %>%
-      select(SYMBOL,fold.change,p.adjvalue)
+      res <- resObject@result[1:input$showCategory, ]
+      res <- tidyr::separate_rows(res, geneID, sep="\\/")
 
-    example1_mapped <- string_db$map( df_for_ppi, "SYMBOL", removeUnmappedRows = TRUE )
+    df_for_ppi <- res %>%
+      arrange(rank) %>%
+      select(geneID,fold.change,p.adjvalue)
+
+    example1_mapped <- string_db$map( df_for_ppi, "geneID", removeUnmappedRows = TRUE )
     hits <- example1_mapped$STRING_id[1:input$showCategory]
     string_db$plot_network(hits)
 }
 shinyTFs <- function(resObject,data, input, output){
 
-    df_for_tf <- data %>%
+    #filter inputs options panel
+    filterOptions(c("showCategory","category_label","label_format"))
+
+      res <- resObject@result[1:input$showCategory, ]
+      res <- tidyr::separate_rows(res, geneID, sep="\\/")
+
+    df_for_tf <- res %>%
       arrange(rank) %>%
       select(fold.change,p.adjvalue,rank)
 
-    rownames(df_for_tf)<-toupper(data$SYMBOL)
+    rownames(df_for_tf)<-toupper(res$geneID)
     deg<- df_for_tf %>% as.matrix()
     contrast_acts <- run_ulm(mat=deg[, 'rank', drop=FALSE], net=net, .source='source', .target='target',
                               .mor='mor', minsize = 5)
