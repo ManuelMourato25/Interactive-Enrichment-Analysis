@@ -31,7 +31,7 @@ run_ora<-function(dataset.name, db.name, output.name="run"){
     dplyr::pull(SYMBOL)
   universeGO <- pull(geneList, SYMBOL)
   universeGO <- as.character(universeGO) #not integers
-  
+
   # Use entire genome if not a susbset (i.e., by size or by missing p.adjvalue)
   if(!'p.adjvalue' %in% names(geneList) | !length(universeKEGG) > length(geneKEGG)){
     universeKEGG <- NULL
@@ -57,7 +57,7 @@ run_ora<-function(dataset.name, db.name, output.name="run"){
 enrichResult <- enrichGO(
                            geneGO,
                            OrgDb = org.db.name,
-                           keyType = 'ENTREZID',
+                           keyType = 'SYMBOL',
                            readable = T,
                            ont = "BP",
                            pvalueCutoff = 0.05)
@@ -67,7 +67,7 @@ enrichResult <- enrichGO(
 enrichResult <- enrichGO(
                            geneGO,
                            OrgDb = org.db.name,
-                           keyType = 'ENTREZID',
+                           keyType = 'SYMBOL',
                            readable = T,
                            ont = "MF",
                            pvalueCutoff = 0.05)
@@ -77,7 +77,7 @@ enrichResult <- enrichGO(
 enrichResult <- enrichGO(
                            geneGO,
                            OrgDb = org.db.name,
-                           keyType = 'ENTREZID',
+                           keyType = 'SYMBOL',
                            readable = T,
                            ont = "CC",
                            pvalueCutoff = 0.05)
