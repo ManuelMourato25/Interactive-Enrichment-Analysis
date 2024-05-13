@@ -44,7 +44,7 @@ run_ora<-function(dataset.name, db.name, output.name="run"){
   if(db.name=='db_kegg'){
     # Perform ORA
   enrichResult <- clusterProfiler::enrichKEGG(
-    gene,
+    geneKEGG,
     organism = "mmu",
     minGSSize = minGSSize,
     maxGSSize = maxGSSize,
@@ -55,7 +55,7 @@ run_ora<-function(dataset.name, db.name, output.name="run"){
   }
   else if(db.name=='db_go_bp') {
 enrichResult <- enrichGO(
-                           gene,
+                           geneGO,
                            OrgDb = org.db.name,
                            keyType = 'ENTREZID',
                            readable = T,
@@ -65,7 +65,7 @@ enrichResult <- enrichGO(
   }
     else if(db.name=='db_go_mf') {
 enrichResult <- enrichGO(
-                           gene,
+                           geneGO,
                            OrgDb = org.db.name,
                            keyType = 'ENTREZID',
                            readable = T,
@@ -75,7 +75,7 @@ enrichResult <- enrichGO(
   }
     else if(db.name=='db_go_cc') {
 enrichResult <- enrichGO(
-                           gene,
+                           geneGO,
                            OrgDb = org.db.name,
                            keyType = 'ENTREZID',
                            readable = T,
