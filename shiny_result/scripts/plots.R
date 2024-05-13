@@ -330,6 +330,9 @@ shinyPPI <- function(resObject,data, input, output){
       arrange(rank) %>%
       select(geneID,fold.change,p.adjvalue)
 
+    print(head(df_for_ppi))
+    print(input$showCategory)
+
     example1_mapped <- string_db$map( df_for_ppi, "geneID", removeUnmappedRows = TRUE )
     hits <- example1_mapped$STRING_id[1:input$showCategory]
     string_db$plot_network(hits)
