@@ -19,15 +19,25 @@ run_ora<-function(dataset.name, db.name, output.name="run"){
   gl.fn <- paste0(file.prefix, "__ora_input.rds")
   geneList <- readRDS(file.path(output.dir, "ora",gl.fn))
   
-  gene <- geneList %>%
+  geneKEGG <- geneList %>%
     dplyr::filter(ora.set == 1) %>%
     dplyr::pull(ENTREZID)
-  universe <- pull(geneList, ENTREZID)
-  universe <- as.character(universe) #not integers
+  universeKEGG <- pull(geneList, ENTREZID)
+  universeKEGG <- as.character(universe) #not integers
+
+
+  geneGO <- geneList %>%
+    dplyr::filter(ora.set == 1) %>%
+    dplyr::pull(SYMBOL)
+  universeGO <- pull(geneList, SYMBOL)
+  universeGO <- as.character(universe) #not integers
   
   # Use entire genome if not a susbset (i.e., by size or by missing p.adjvalue)
-  if(!'p.adjvalue' %in% names(geneList) | !length(universe) > length(gene)){
-    universe <- NULL
+  if(!'p.adjvalue' %in% names(geneList) | !length(universeKEGG) > length(geneKEGG)){
+    universeKEGG <- NULL
+  }
+  if(!'p.adjvalue' %in% names(geneList) | !length(universeGO) > length(geneGO)){
+    universeGO <- NULL
   }
 
 
