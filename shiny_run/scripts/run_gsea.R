@@ -34,7 +34,8 @@ run_gsea<-function(dataset.name, db.name, output.name="run"){
   
   # Perform GSEA
   if (db.name=='db_kegg'){
-
+       print(geneListKEGG)
+       print(length(geneListKEGG))
        gseaResult <- gseKEGG(geneList= geneListKEGG,
                organism     = 'mmu',
                nPerm        = 10000,
@@ -73,7 +74,7 @@ run_gsea<-function(dataset.name, db.name, output.name="run"){
      }
            else if (db.name=='db_go_cc'){
 
-       gseaResult <- gseGO(geneList=geneList,
+       gseaResult <- gseGO(geneList=geneListGO,
                      ont ="CC",
                      keyType = "SYMBOL",
                      nPerm = 10000,
