@@ -23,14 +23,14 @@ run_ora<-function(dataset.name, db.name, output.name="run"){
     dplyr::filter(ora.set == 1) %>%
     dplyr::pull(ENTREZID)
   universeKEGG <- pull(geneList, ENTREZID)
-  universeKEGG <- as.character(universe) #not integers
+  universeKEGG <- as.character(universeKEGG) #not integers
 
 
   geneGO <- geneList %>%
     dplyr::filter(ora.set == 1) %>%
     dplyr::pull(SYMBOL)
   universeGO <- pull(geneList, SYMBOL)
-  universeGO <- as.character(universe) #not integers
+  universeGO <- as.character(universeGO) #not integers
   
   # Use entire genome if not a susbset (i.e., by size or by missing p.adjvalue)
   if(!'p.adjvalue' %in% names(geneList) | !length(universeKEGG) > length(geneKEGG)){
