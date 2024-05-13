@@ -88,7 +88,7 @@ enrichResult <- enrichGO(
     # Object from string
   database <- eval(parse(text=db.name))
   enrichResult <- clusterProfiler::enricher(
-    gene,
+    geneKEGG,
     universe = universe,
     TERM2GENE = database[,c("term","gene")],
     TERM2NAME = database[,c("term","name")],
@@ -106,7 +106,7 @@ enrichResult <- enrichGO(
   
   # Save objects
   gl.fn <- paste(file.prefix, db.name,"ora","geneList.rds", sep = "_")
-  saveRDS(gene, file.path(output.dir,"ora",gl.fn))
+  saveRDS(geneKEGG, file.path(output.dir,"ora",gl.fn))
   er.fn <- paste(file.prefix, db.name,"ora","result.rds", sep = "_")
   saveRDS(enrichResult, file.path(output.dir,"ora",er.fn))
   
@@ -120,6 +120,6 @@ enrichResult <- enrichGO(
   
   ## Plot
   if (nrow(enrichResult.df) > 0)
-    plot_results(enrichResult, gene, file.prefix, output.dir, db.name, "ora")
+    plot_results(enrichResult, geneKEGG, file.prefix, output.dir, db.name, "ora")
 
 }

@@ -88,7 +88,7 @@ run_gsea<-function(dataset.name, db.name, output.name="run"){
             # Object from string
               database <- eval(parse(text=db.name))
               gseaResult <- clusterProfiler::GSEA(
-                geneList,
+                geneListKEGG,
                 TERM2GENE = database[,c("term","gene")],
                 TERM2NAME = database[,c("term","name")],
                 minGSSize = minGSSize,
@@ -100,7 +100,7 @@ run_gsea<-function(dataset.name, db.name, output.name="run"){
   
   # Save objects
   gl.fn <- paste(file.prefix, db.name,"gsea","geneList.rds", sep = "_")
-  saveRDS(geneList, file.path(output.dir,"gsea",gl.fn))
+  saveRDS(geneListKEGG, file.path(output.dir,"gsea",gl.fn))
   er.fn <- paste(file.prefix, db.name,"gsea","result.rds", sep = "_")
   saveRDS(gseaResult, file.path(output.dir,"gsea",er.fn))
   
@@ -114,5 +114,5 @@ run_gsea<-function(dataset.name, db.name, output.name="run"){
   
   ## Plot
   if (nrow(gseaResult.df  ) > 0)
-    plot_results(gseaResult, geneList, file.prefix, output.dir, db.name, "gsea")
+    plot_results(gseaResult, geneListKEGG, file.prefix, output.dir, db.name, "gsea")
 }
