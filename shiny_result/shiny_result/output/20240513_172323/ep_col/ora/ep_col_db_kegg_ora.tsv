@@ -1,0 +1,16 @@
+category	subcategory	ID	Description	GeneRatio	BgRatio	pvalue	p.adjust	qvalue	geneID	Count
+Human Diseases	Immune disease	mmu05310	Asthma - Mus musculus (house mouse)	3/52	25/9711	0.000306508252902484	0.028046359805031	0.0235497271256116	Tnf/H2-Ab1/H2-Eb1	3
+Human Diseases	Immune disease	mmu05321	Inflammatory bowel disease - Mus musculus (house mouse)	4/52	62/9711	0.000324235373468566	0.028046359805031	0.0235497271256116	Tnf/H2-Ab1/Rorc/H2-Eb1	4
+Organismal Systems	Immune system	mmu04612	Antigen processing and presentation - Mus musculus (house mouse)	4/52	87/9711	0.00117240495210403	0.0386181582554292	0.0324265642789731	Tnf/H2-Ab1/H2-Eb1/Hspa1a	4
+Human Diseases	Immune disease	mmu05323	Rheumatoid arthritis - Mus musculus (house mouse)	4/52	87/9711	0.00117240495210403	0.0386181582554292	0.0324265642789731	Tnf/H2-Ab1/Cxcl2/H2-Eb1	4
+Human Diseases	Immune disease	mmu05322	Systemic lupus erythematosus - Mus musculus (house mouse)	5/52	150/9711	0.00119161008200619	0.0386181582554292	0.0324265642789731	Tnf/H2-Ab1/H2ac10/H2-Eb1/H2ac11	5
+Organismal Systems	Immune system	mmu04640	Hematopoietic cell lineage - Mus musculus (house mouse)	4/52	94/9711	0.00156258443808095	0.0386181582554292	0.0324265642789731	Tnf/H2-Ab1/Mme/H2-Eb1	4
+Human Diseases	Cardiovascular disease	mmu05416	Viral myocarditis - Mus musculus (house mouse)	4/52	94/9711	0.00156258443808095	0.0386181582554292	0.0324265642789731	H2-Ab1/Sgcd/H2-Eb1/Sspn	4
+Human Diseases	Cardiovascular disease	mmu05410	Hypertrophic cardiomyopathy - Mus musculus (house mouse)	4/52	100/9711	0.00196242534988984	0.0392542806598708	0.0329606980898215	Tnf/Sgcd/Itga9/Sspn	4
+Human Diseases	Cardiovascular disease	mmu05414	Dilated cardiomyopathy - Mus musculus (house mouse)	4/52	103/9711	0.00218675212288294	0.0392542806598708	0.0329606980898215	Tnf/Sgcd/Itga9/Sspn	4
+Environmental Information Processing	Signal transduction	mmu04064	NF-kappa B signaling pathway - Mus musculus (house mouse)	4/52	106/9711	0.00242822382278395	0.0392542806598708	0.0329606980898215	Tnf/Cxcl2/Gadd45g/Gadd45b	4
+Human Diseases	Infectious disease: parasitic	mmu05145	Toxoplasmosis - Mus musculus (house mouse)	4/52	109/9711	0.00268748871517205	0.0392542806598708	0.0329606980898215	Tnf/H2-Ab1/H2-Eb1/Hspa1a	4
+Organismal Systems	Development and regeneration	mmu04360	Axon guidance - Mus musculus (house mouse)	5/52	181/9711	0.00272284027698526	0.0392542806598708	0.0329606980898215	Epha6/Efna5/Bmpr1b/Ablim2/Ephb6	5
+Human Diseases	Infectious disease: bacterial	mmu05134	Legionellosis - Mus musculus (house mouse)	3/52	60/9711	0.00399708220657239	0.0460996814491349	0.0387085855794379	Tnf/Cxcl2/Hspa1a	3
+Human Diseases	Immune disease	mmu05330	Allograft rejection - Mus musculus (house mouse)	3/52	60/9711	0.00399708220657239	0.0460996814491349	0.0387085855794379	Tnf/H2-Ab1/H2-Eb1	3
+Human Diseases	Immune disease	mmu05332	Graft-versus-host disease - Mus musculus (house mouse)	3/52	60/9711	0.00399708220657239	0.0460996814491349	0.0387085855794379	Tnf/H2-Ab1/H2-Eb1	3
